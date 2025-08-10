@@ -10,5 +10,5 @@ backBtn?.addEventListener("click", function () {
 
 // Go to levels page:
 getStartedBtn?.addEventListener("click", function () {
-    window.location.assign("../../levels.html");
+    window.location.assign("./levels.html");
 });
