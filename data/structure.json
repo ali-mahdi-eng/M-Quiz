@@ -1,0 +1,28 @@
+{
+    "level-1": [
+        {
+            "question": "",
+            "correctAnswer": "",
+            "allAnswers": ["","","",""],
+            "helps": {
+                "hint": "",
+                "remove2answers": ["",""],
+                "correctAnswer": ""
+            },
+            "category": ""
+        },
+        {
+            "question": "",
+            "correctAnswer": "",
+            "allAnswers": ["","","",""],
+            "helps" :{
+                "hint": null,
+                "remove2answers": ["", ""],
+                "correctAnswer": ""
+            },
+            "category": ""
+        }
+    ],
+    "level-2": [],
+    "level-3": []
+}
