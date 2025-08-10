@@ -297,7 +297,7 @@ function showAlert(gameResult) {
     }).then((result)=>{
         // if (ok) OR (backdrop) clicked.
         if (result.isConfirmed  || result.isDismissed) {
-            window.location.assign("../../levels.html");
+            window.location.assign("./levels.html");
         }
     });
 }
