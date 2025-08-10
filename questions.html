@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#9B99FF">
+    <!-- SweetAlert2-->
+    <link href="./assets/library/sweet-alert-2/sweetalert2.min.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Almarai:wght@300;400;700;800&display=swap" rel="stylesheet">
+    <!-- Page Favicon-->
+    <link rel="apple-touch-icon" sizes="180x180" href="./assets/icons/favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="./assets/icons/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="./assets/icons/favicon/favicon-16x16.png">
+    <!-- Style -->
+    <link rel="stylesheet" href="./assets/style/questions.css">
+    <!-- <link rel="stylesheet" href="./assets/style/themes/light.css"> -->
+    <!-- PWA -->
+    <link rel="manifest" href="./manifest.json" />
+    <title>M-Quiz Game</title>
+</head>
+<body>
+    <header class="header">
+        <button class="back-btn" aria-label="Back">
+            <svg width="24px" height="24px" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg"><path fill="#ffffff" d="M224 480h640a32 32 0 1 1 0 64H224a32 32 0 0 1 0-64z"/><path fill="#ffffff" d="m237.248 512 265.408 265.344a32 32 0 0 1-45.312 45.312l-288-288a32 32 0 0 1 0-45.312l288-288a32 32 0 1 1 45.312 45.312L237.248 512z"/></svg>
+       </button>
+        <span class="question-counter-container">
+            <span class="question-counter">1</span>/<span class="total-question-counter">--</span>
+        </span>
+        <span class="helps-container">
+            <button class="help remove2answers-btn" aria-label="Remove Two Answers"><span class="help-icon remove2answers-icon"><svg xmlns="http://www.w3.org/2000/svg" height="28" width="28" fill="#ffb1de" viewBox="0 0 24 24"><path d="M19.575,10.915l-1.842-.78,.781-1.842,1.842,.78-.781,1.842Zm3.283-8.272c-.751-.579-1.702-.775-2.608-.538-.906,.237-1.664,.892-2.027,1.75l1.842,.78c.124-.292,.382-.514,.692-.596,.179-.046,.528-.084,.878,.187,.273,.211,.417,.601,.348,.947-.104,.525-.529,.792-.904,.824-.408,.034-1.65,.138-2.175,1.376l1.842,.78c.024-.056,.053-.126,.5-.164,1.349-.114,2.433-1.089,2.699-2.428,.217-1.095-.21-2.241-1.087-2.918ZM3.636,9.081l.78,1.841,1.842-.78-.781-1.842-1.841,.781Zm.17-4.663c.305,.44,.201,.931-.037,1.223-.259,.317-1.048,1.282-.523,2.52l1.842-.78c-.024-.056-.054-.126,.23-.474,.856-1.048,.91-2.506,.132-3.627-.636-.918-1.755-1.41-2.853-1.249-.938,.136-1.741,.683-2.2,1.5-.459,.816-.516,1.815-.152,2.674l1.841-.781c-.124-.292-.104-.632,.054-.912,.09-.16,.307-.438,.745-.501,.341-.053,.72,.118,.922,.409Zm7.19,4.592h2v-2h-2v2Zm.405-6.792c.146-.112,.456-.283,.881-.171,.334,.088,.618,.39,.689,.736,.109,.524-.178,.937-.511,1.111-.363,.191-1.465,.771-1.465,2.116h2c0-.061,0-.138,.396-.346,1.198-.631,1.816-1.952,1.538-3.289-.228-1.093-1.067-1.981-2.14-2.263-.917-.242-1.868-.05-2.611,.522-.741,.572-1.184,1.47-1.184,2.402h2c0-.317,.151-.623,.405-.819Zm6.406,10.879c-.626-.895-1.601-1.47-2.686-1.578-.753-.948-1.902-1.518-3.121-1.518-1.443,0-2.75,.781-3.454,2.005-.134,.007-.251,.026-.358,.051-1.802,.273-3.188,1.815-3.188,3.693,0,.195,.029,.382,.057,.569-1.211,.55-2.057,1.764-2.057,3.181,0,1.933,1.567,3.5,3.5,3.5,1.927,.012,3.495-1.623,3.5-3.5,0-.935-.364-1.813-1.025-2.475l1.414-1.414c1.039,1.038,1.611,2.42,1.611,3.889v4.5h2v-3h3c2.206,0,4-1.794,4-4,0-1.907-1.364-3.528-3.193-3.904Z"/></svg></span></button>
+            <button class="help hint-btn" aria-label="Explain Me The Question"><span class="help-icon hint-icon"><svg height="28" width="28" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="#ffde3d"><path d="m5.868 15.583a8.938 8.938 0 0 1 -2.793-7.761 9 9 0 1 1 14.857 7.941 5.741 5.741 0 0 0 -1.594 2.237h-3.338v-7.184a3 3 0 0 0 2-2.816 1 1 0 0 0 -2 0 1 1 0 0 1 -2 0 1 1 0 0 0 -2 0 3 3 0 0 0 2 2.816v7.184h-3.437a6.839 6.839 0 0 0 -1.695-2.417zm2.132 4.417v.31a3.694 3.694 0 0 0 3.69 3.69h.62a3.694 3.694 0 0 0 3.69-3.69v-.31z"/></path></span></button>
+            <button class="help solve-question-btn" aria-label="Give Me The Correct Answer"><span class="help-icon solve-question-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="#ffffff"><path d="M24,7.5c0,.828-.672,1.5-1.5,1.5h-1.785c.178,.587,.285,1.172,.285,1.5,0,.828-.672,1.5-1.5,1.5s-1.5-.672-1.5-1.5c0-.328,.106-.913,.285-1.5h-1.785c-.828,0-1.5-.672-1.5-1.5v-1.785c.587,.178,1.172,.285,1.5,.285,.828,0,1.5-.672,1.5-1.5s-.672-1.5-1.5-1.5c-.328,0-.913,.106-1.5,.285V1.5c0-.828,.672-1.5,1.5-1.5h3.5c2.209,0,4,1.791,4,4v3.5ZM3.285,13c-.178-.587-.285-1.172-.285-1.5,0-.828,.672-1.5,1.5-1.5s1.5,.672,1.5,1.5c0,.328-.106,.913-.285,1.5h3.285V5.5c0-.828-.672-1.5-1.5-1.5h-3.5C1.791,4,0,5.791,0,8v5H3.285Zm15.215,2c.828,0,1.5,.672,1.5,1.5v3.5c0,2.209-1.791,4-4,4h-5V15h3.285c-.178,.587-.285,1.172-.285,1.5,0,.828,.672,1.5,1.5,1.5s1.5-.672,1.5-1.5c0-.328-.106-.913-.285-1.5h1.785Zm-9.5,9H4c-2.209,0-4-1.791-4-4v-5H9v3.285c-.587-.178-1.172-.285-1.5-.285-.828,0-1.5,.672-1.5,1.5s.672,1.5,1.5,1.5c.328,0,.913-.106,1.5-.285v3.285Z"/></path></span></button>
+        </span>
+        <span class="power-container" aria-label="My Power">
+            <!-- Added By JavaScript -->
+        </span>
+    </header>
+    <main class="main">
+        <span class="question-container" dir="auto">
+            <!-- Questions Are Added By JavaScript. -->
+        </span>
+        <ul class="answers-container" dir="auto">
+            <!-- Answers Are Added By JavaScript. --> 
+        </ul>
+    </main>
+    <footer class="footer" hidden>
+        <span class="footer-text">
+            <!-- Show message with JavaScript after select answer --> 
+        </span>
+        <button class="next-btn">Next</button>
+    </footer>
+    
+
+<!-- SweetAlert2 -->
+<script src="./assets/script/main.js"></script>
+<script src="./assets/library/sweet-alert-2/sweetalert2.min.js"></script>
+<script src="./assets/script/questions.js" defer></script>
+</body>
+</html>
