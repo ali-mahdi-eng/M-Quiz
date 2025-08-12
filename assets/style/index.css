@@ -196,7 +196,8 @@ body {
     font-size: 1.1rem;
 }
 
-.easy, .hard {
+.easy, .hard,
+.hide, .show {
     padding: 5px 15px;
     margin: 0 8px;
     border-radius: 15px;
@@ -204,6 +205,10 @@ body {
     opacity: .7;
     color: #ffffff;
     font-size: 16px;
+}
+
+.show, .hide {
+    margin: 0 3px;
 }
 
 
