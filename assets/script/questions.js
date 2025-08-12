@@ -1,18 +1,25 @@
 let helpsContainer = document.querySelector(".helps-container");
+let remove2answersBtn = document.querySelector(".remove2answers-btn");
+let hintBtn = document.querySelector(".hint-btn");
+let solveQuestionBtn = document.querySelector(".solve-question-btn");
 let questionCounter = document.querySelector(".question-counter");
 let totalQuestionCounter = document.querySelector(".total-question-counter");
 let main = document.querySelector(".main");
+let question = document.querySelector(".question");
+let questionContainer = document.querySelector(".question-container");
+let answersContainer = document.querySelector(".answers-container");
 let footer = document.querySelector(".footer");
 let footerText = document.querySelector(".footer-text");
 let nextBtn = document.querySelector(".next-btn");
-let questionContainer = document.querySelector(".question-container");
-let question = document.querySelector(".question");
-let answersContainer  = document.querySelector(".answers-container");
+
+
+
 
 
 
 const gameState = {
     difficulty: localStorage.getItem("difficulty") ||  "easy",
+    previewCorrectAnswer: localStorage.getItem("preview-correct-answer") || "hide",
     level: 1, // start from 1.
     index: 0, // start from 0.
     total: 0, // total number of questions in this level (start from 1 to infinite if not empty).
@@ -23,7 +30,6 @@ const gameState = {
 let data; // defuault: undefined
 let allQuestions = [];
 let language = localStorage.getItem("language") || "ar";
-
 
 
 
@@ -40,6 +46,9 @@ const translation = {
         "lose-title": "Game Over",
         "good-job": "Good Job!",
         "try-again": "Not Bad, Try Again",
+        "text--hint": "Hint",
+        "text--get-it": "Get It",
+        "text--one-answer-deleted": "One Answer Has Deleted",
         "comming-soon": "Comming Soon..",
         "hint-system": "Hint System",
         "ok-btn": "ok",
@@ -58,6 +67,9 @@ const translation = {
         "lose-title": "إنتهت اللعبة",
         "good-job": "عمل جيد!",
         "try-again": "ليس سيء، حاول مرة اخرى",
+        "text--hint": "تلميح",
+        "text--get-it": "فهمت",
+        "text--one-answer-deleted": "تم حذف إجابة",
         "comming-soon": "قادم قريباً..",
         "hint-system": "نظام التلميحات",
         "ok-btn": "حسناً",
@@ -67,7 +79,18 @@ const translation = {
 }
 
 
-
+function translate(className) {
+    if (Array.isArray(className)) {
+        // translate(["ok-btn"]);
+        // Translate using element className
+        return translation[language][className];
+    }
+    else {
+        // translate("OK Button");
+        // Escape Translation
+        return className;
+    }
+}
 
 
 
@@ -163,7 +186,7 @@ function displayCurrentQuestion(question) {
                     handleWrongAnswer();
                     // Check If Game Is End
                     if (gameState.power === 0) {
-                        handleResult();
+                        showResult();
                         return;
                     }
                 }
@@ -197,12 +220,24 @@ function handleWrongAnswer(question) {
     footerText.innerHTML = `<span class="msg-wrong-answer"> ${translation[language]["msg-wrong-answer"]} </span>`;
     footerText.style.fontSize = "1rem";
     footer.style.background = "#e74c3c";
+    // Show Correct Answer (if preview enable)
+    if (gameState.previewCorrectAnswer === "show") {
+        [...data["level-" + gameState.level][gameState.index].allAnswers].map((e)=>{
+            if (e === data["level-" + gameState.level][gameState.index].correctAnswer) {
+                [...document.querySelectorAll(".answer")].map((ans)=>{
+                    if(e === ans.textContent) {
+                        ans.style.background = "hsl(152,68%,80%)";
+                    }
+                });
+            }
+        });
+    }
 }
 
 function handleNextBtn() {
     main.style.pointerEvents = "auto";
     if (gameState.index === gameState.total -1) {
-        handleResult();
+        showResult();
     }
     else {
         gameState.index += 1;
@@ -210,6 +245,8 @@ function handleNextBtn() {
         if (allQuestions.length > 0) {
             displayCurrentQuestion(allQuestions[gameState.index]);
             displayCurrentQuestion(allQuestions[gameState.index]);
+            remove2answersBtn.style.pointerEvents = "auto";
+            remove2answersBtn.style.opacity = "1";
         }
     }
     document.querySelectorAll(".answer").forEach(function (e) {
@@ -219,7 +256,7 @@ function handleNextBtn() {
     nextBtn.removeEventListener("click", handleNextBtn);
 }
 
-function handleResult() {
+function showResult() {
     // Prevent Extra Touch
     main.style.pointerEvents = "none";
     footer.hidden = true;
@@ -263,6 +300,43 @@ function updatePowerUI() {
 }
 
 
+
+
+hintBtn.addEventListener("click", function() {
+    let hint = data["level-" + gameState.level][gameState.index].helps.hint;
+    Swal.fire({
+        title: `<span class="comming-soon">${translate(["text--hint"])}</span>`,
+        html: `<span class="hint-system"> ${hint} </span>`,
+        icon: "info",
+        confirmButtonText: `<span class="ok-btn"> ${translate(["text--get-it"])}! </span>`,
+    });
+});
+
+remove2answersBtn.addEventListener("click", function() {
+    let arr = data["level-" + gameState.level][gameState.index].allAnswers;
+    let answerDeleted = data["level-" + gameState.level][gameState.index].helps.remove2answers[Math.round(Math.random())]; // deleteOneAnswer [0] OR [1]
+    let newArr = arr.map((e) => {
+        if (e === answerDeleted) {
+            [...document.querySelectorAll(".answer")].map((ans) => {
+                if (e === ans.textContent)
+                ans.remove();
+                remove2answersBtn.style.pointerEvents = "none";
+                remove2answersBtn.style.opacity = "0.6";
+            });
+        } 
+    });
+    
+    Swal.fire({
+        title: `<span class="comming-soon">${translate(["text--one-answer-deleted"])}!</span>`,
+        html: `<span class="hint-system"><del> ${answerDeleted} </del></span>`,
+        icon: "warning",
+        confirmButtonText: `<span class="ok-btn"> ${translate(["text--get-it"])}! </span>`,
+    });
+});
+
+
+
+/*
 helpsContainer.addEventListener("click", function() {
     Swal.fire({
         title: `<span class="comming-soon">${translation[language]["comming-soon"]}</span>`,
@@ -271,6 +345,7 @@ helpsContainer.addEventListener("click", function() {
         confirmButtonText: `<span class="ok-btn"> ${translation[language]["ok-btn"]} </span>`,
     });
 });
+*/
 
 
 function showAlert(gameResult) {

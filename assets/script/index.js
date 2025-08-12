@@ -24,6 +24,9 @@ const translation = {
         "text--difficulty": "Difficulty",
         "text--hard": "Hard",
         "text--easy": "Easy",
+        "text--correct-answer-preview": "Correct Answer",
+        "text--hide": "Hide",
+        "text--show": "Show",
     },
     
     "ar": {
@@ -44,6 +47,9 @@ const translation = {
         "text--difficulty": "الصعوبة",
         "text--hard": "صعب",
         "text--easy": "سهل",
+        "text--correct-answer-preview": "الإجابة الصحيحة",
+        "text--hide": "إخفاء",
+        "text--show": "إظهار",
     }
 }
 
@@ -84,16 +90,25 @@ function updateHomeUI() {
 
 
 function showAppSettings() {
-    const appVersion = "[0.6.0]";
+    const appVersion = "[0.7.0]";
     // Add Sweet Alert Notification
     Swal.fire({
         title: `<span class="settings-title"> ${translation[language]["settings-btn"]} </span>`,
         html: `
             <div class="settings-container">
                 <span class="settings">
-                    ${translation[language]["text--difficulty"]}: 
-                    <span id="easy" class="difficulty-select easy">${translation[language]["text--easy"]} </span>
-                    <span id="hard" class="difficulty-select hard">${translation[language]["text--hard"]} </span>
+                    <span class="difficulty" hidden="true">
+                        ${translation[language]["text--difficulty"]}: 
+                        <span id="easy" class="difficulty-select easy">${translation[language]["text--easy"]} </span>
+                        <span id="hard" class="difficulty-select hard">${translation[language]["text--hard"]} </span>
+                    </span>
+                    <br>
+                    <br>
+                    <span class="correct-answer-preview">
+                        ${translation[language]["text--correct-answer-preview"]}: 
+                        <span id="hide" class="correct-answer-preview-select hide">${translation[language]["text--hide"]} </span>
+                        <span id="show" class="correct-answer-preview-select show">${translation[language]["text--show"]} </span>
+                    </span>
                 </span>
             </div>
             <span class="version"> ${translation[language]["text--version"]}: ${appVersion} </span>
@@ -121,15 +136,31 @@ function showAppSettings() {
     
     
     
-    
-    
-    // Select Difficulty
-    document.querySelector(".easy").style.opacity = "1";
+    // Select Difficulty (Easy, Hard)
+    if (localStorage.getItem("difficulty") === "hard") {
+        document.querySelector(".hard").style.opacity = "1";
+    }else {
+        document.querySelector(".easy").style.opacity = "1";
+    }
     document.querySelectorAll(".difficulty-select").forEach((e)=>{
         e.addEventListener("click",()=>{
             document.querySelectorAll(".difficulty-select").forEach((e)=>{ e.style.opacity = "0.7"; });
             e.style.opacity = "1";
             localStorage.setItem("difficulty", e.id);
+        });
+    });
+    // --------------------
+    // Preview Correct Answer (Hide, Show)
+    if (localStorage.getItem("preview-correct-answer") === "show") {
+        document.querySelector(".show").style.opacity = "1";
+    }else {
+        document.querySelector(".hide").style.opacity = "1";
+    }
+    document.querySelectorAll(".correct-answer-preview-select").forEach((e)=>{
+        e.addEventListener("click",()=>{
+            document.querySelectorAll(".correct-answer-preview-select").forEach((e)=>{ e.style.opacity = "0.7"; });
+            e.style.opacity = "1";
+            localStorage.setItem("preview-correct-answer", e.id);
         });
     });
     // --------------------
