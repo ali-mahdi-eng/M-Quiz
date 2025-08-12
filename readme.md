@@ -1,26 +1,19 @@
 # M-Quiz 🧠⚙️  
-**Version: 0.6.0**
+**Version: 0.7.0**
 
 A quiz web application focused on Material Engineering questions, designed to test and enhance users' knowledge with a simple and engaging interface.
 
 ---
 
 ## 📝 To-Do:
+- [x] in internet (not locally) only index.html works, [some link have wrong reference in "main.js" and "questions.js" files, `location.assign("../../levels.html")` => `location.assign("./levels.html")`]
+- [x] upload project on GitHub, [Live Page](https://ali-mahdi-eng.github.io/M-Quiz/), [Project](https://github.com/ali-mahdi-eng/M-Quiz)
+- [x] Program Help System (give hint, delete one wrong answer).
+- [x] add option to make user can not show the correct answer if he's answer is not correct for more difficulty.
 - [ ] Add Sound Effect (FX).
-- [ ] Program Help System.
 - [ ] store the progress for each level ``` localStorage.setItem(`data-of-level-${level}`, dataToSave); ```.
 - [ ] Add level system (lock level if not all the previous levels are completed).
 - [ ] Add same transitions when show/hide "next btn" container after user select answer.
-- [ ] show the correct answer if user answer is not correct.
-- [ ] add option to make user can not show the correct answer if he's answer is not correct for more difficulty.
-- [x] Use (page URL) instead of (submit with form) to go the selected level.
-- [x] Answer Randomly indexed Each Time.
-- [x] Make Arabic As Default Language
-- [x] Add Real data (Question).
-- [x] Enhance App Stability (enhance and data fetching function).
-- [x] Add Translation data in js file (separately) instead of fetch from json file (to avoid problems of fetching, and improve stability).
-- [x] M-Quiz Game can be installed on mobile from browser (add to homepage) using Aggressive Web Application (PWA).
-- [x] Issues: Some time "questions.js" file does not loaded (all other files are loaded and work well).
 - 
 - 
 
@@ -28,6 +21,7 @@ A quiz web application focused on Material Engineering questions, designed to te
 
 --------------------------------
 ## ✅ Completed
+- [x] M-Quiz Game can be installed on mobile from browser (add to homepage) using Aggressive Web Application (PWA).
 - [x] Arabic Language support ❤️.
 - [x] Neglect `resultBtn`, Show Results **Automatically** after select the answer of the last question.
 - [x] Back to `levels.html` after show results screen, ether using "ok" btn or "backdrop".
@@ -52,7 +46,13 @@ A quiz web application focused on Material Engineering questions, designed to te
 
 --------------------------------
 ## 🐞 Fixed Issues
-
+- [x] Use (page URL) instead of (submit with form) to go the selected level.
+- [x] Answer Randomly indexed Each Time.
+- [x] Make Arabic As Default Language
+- [x] Add Real data (Question).
+- [x] Enhance App Stability (enhance and data fetching function).
+- [x] Add Translation data in js file (separately) instead of fetch from json file (to avoid problems of fetching, and improve stability).
+- [x] Issues: Some time "questions.js" file does not loaded (all other files are loaded and work well).
 - [x] fix: (`NextBtn`) not work good.
 - 
 - 
