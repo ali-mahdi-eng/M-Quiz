@@ -90,7 +90,7 @@ function updateHomeUI() {
 
 
 function showAppSettings() {
-    const appVersion = "[0.7.0]";
+    const appVersion = "[0.7.1]";
     // Add Sweet Alert Notification
     Swal.fire({
         title: `<span class="settings-title"> ${translation[language]["settings-btn"]} </span>`,
