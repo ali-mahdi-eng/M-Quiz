@@ -1,0 +1,169 @@
+{
+    "level-1": [
+        {
+            "question": "Which shape has the largest area for the same perimeter?",
+            "correctAnswer": "Circle",
+            "allAnswers": ["Circle", "Square", "Rectangle", "Triangle"],
+            "helps": {
+                "hint": "It has no corners.",
+                "remove2answers": ["Square", "Triangle"],
+                "correctAnswer": "Circle"
+            },
+            "category": "Geometry"
+        },
+        {
+            "question": "Which unit is used to measure electrical current?",
+            "correctAnswer": "Ampere",
+            "allAnswers": ["Ampere", "Volt", "Ohm", "Watt"],
+            "helps": {
+                "hint": "It is named after André-Marie Ampère.",
+                "remove2answers": ["Volt", "Ohm"],
+                "correctAnswer": "Ampere"
+            },
+            "category": "Electricity"
+        },
+        {
+            "question": "Which metal is most commonly used to make electrical wires?",
+            "correctAnswer": "Copper",
+            "allAnswers": ["Copper", "Aluminum", "Silver", "Steel"],
+            "helps": {
+                "hint": "It has excellent conductivity and a reddish color.",
+                "remove2answers": ["Steel", "Silver"],
+                "correctAnswer": "Copper"
+            },
+            "category": "Materials"
+        },
+        {
+            "question": "Which of these materials is the best thermal conductor?",
+            "correctAnswer": "Silver",
+            "allAnswers": ["Silver", "Copper", "Aluminum", "Steel"],
+            "helps": {
+                "hint": "It is also the most reflective metal.",
+                "remove2answers": ["Steel", "Aluminum"],
+                "correctAnswer": "Silver"
+            },
+            "category": "Materials"
+        },
+        {
+            "question": "Which tool is used to measure angles?",
+            "correctAnswer": "Protractor",
+            "allAnswers": ["Protractor", "Ruler", "Compass", "Caliper"],
+            "helps": {
+                "hint": "It is usually semi-circular or circular.",
+                "remove2answers": ["Ruler", "Caliper"],
+                "correctAnswer": "Protractor"
+            },
+            "category": "Tools"
+        },
+        {
+            "question": "What is the SI unit of force?",
+            "correctAnswer": "Newton",
+            "allAnswers": ["Newton", "Joule", "Pascal", "Watt"],
+            "helps": {
+                "hint": "It is named after a famous physicist.",
+                "remove2answers": ["Pascal", "Watt"],
+                "correctAnswer": "Newton"
+            },
+            "category": "Physics"
+        },
+        {
+            "question": "Which shape has exactly one curved edge?",
+            "correctAnswer": "Circle",
+            "allAnswers": ["Circle", "Rectangle", "Square", "Pentagon"],
+            "helps": {
+                "hint": "Its diameter is twice the radius.",
+                "remove2answers": ["Rectangle", "Square"],
+                "correctAnswer": "Circle"
+            },
+            "category": "Geometry"
+        },
+        {
+            "question": "Which part of a bridge supports the deck from below?",
+            "correctAnswer": "Piers",
+            "allAnswers": ["Piers", "Cables", "Towers", "Beams"],
+            "helps": {
+                "hint": "They are vertical structures.",
+                "remove2answers": ["Cables", "Towers"],
+                "correctAnswer": "Piers"
+            },
+            "category": "Structures"
+        },
+        {
+            "question": "Which energy source is renewable?",
+            "correctAnswer": "Solar",
+            "allAnswers": ["Solar", "Coal", "Oil", "Natural Gas"],
+            "helps": {
+                "hint": "It comes from the Sun.",
+                "remove2answers": ["Coal", "Oil"],
+                "correctAnswer": "Solar"
+            },
+            "category": "Energy"
+        },
+        {
+            "question": "Which unit is used to measure frequency?",
+            "correctAnswer": "Hertz",
+            "allAnswers": ["Hertz", "Decibel", "Newton", "Volt"],
+            "helps": {
+                "hint": "It represents cycles per second.",
+                "remove2answers": ["Decibel", "Newton"],
+                "correctAnswer": "Hertz"
+            },
+            "category": "Physics"
+        },
+        {
+            "question": "Which gas is essential for combustion?",
+            "correctAnswer": "Oxygen",
+            "allAnswers": ["Oxygen", "Nitrogen", "Carbon Dioxide", "Helium"],
+            "helps": {
+                "hint": "It makes up about 21% of air.",
+                "remove2answers": ["Nitrogen", "Helium"],
+                "correctAnswer": "Oxygen"
+            },
+            "category": "Chemistry"
+        },
+        {
+            "question": "Which shape has all sides equal and all angles equal to 90°?",
+            "correctAnswer": "Square",
+            "allAnswers": ["Square", "Rectangle", "Rhombus", "Parallelogram"],
+            "helps": {
+                "hint": "It is a special type of rectangle.",
+                "remove2answers": ["Rhombus", "Parallelogram"],
+                "correctAnswer": "Square"
+            },
+            "category": "Geometry"
+        },
+        {
+            "question": "Which device converts electrical energy into mechanical energy?",
+            "correctAnswer": "Electric Motor",
+            "allAnswers": ["Electric Motor", "Generator", "Battery", "Transformer"],
+            "helps": {
+                "hint": "It uses a magnetic field to create motion.",
+                "remove2answers": ["Battery", "Transformer"],
+                "correctAnswer": "Electric Motor"
+            },
+            "category": "Electricity"
+        },
+        {
+            "question": "Which property measures how much a material resists stretching?",
+            "correctAnswer": "Tensile Strength",
+            "allAnswers": ["Tensile Strength", "Hardness", "Elasticity", "Ductility"],
+            "helps": {
+                "hint": "It is measured in units of stress.",
+                "remove2answers": ["Hardness", "Elasticity"],
+                "correctAnswer": "Tensile Strength"
+            },
+            "category": "Materials"
+        },
+        {
+            "question": "Which simple machine is a sloping surface?",
+            "correctAnswer": "Inclined Plane",
+            "allAnswers": ["Inclined Plane", "Lever", "Pulley", "Wheel and Axle"],
+            "helps": {
+                "hint": "It helps move heavy objects upward.",
+                "remove2answers": ["Pulley", "Wheel and Axle"],
+                "correctAnswer": "Inclined Plane"
+            },
+            "category": "Mechanics"
+        }
+    ]
+}
