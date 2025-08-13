@@ -6,11 +6,13 @@ A quiz web application focused on Material Engineering questions, designed to te
 ---
 
 ## 📝 To-Do:
-- [x] in internet (not locally) only index.html works, [some link have wrong reference in "main.js" and "questions.js" files, `location.assign("../../levels.html")` => `location.assign("./levels.html")`]
-- [x] upload project on GitHub, [Live Page](https://ali-mahdi-eng.github.io/M-Quiz/), [Project](https://github.com/ali-mahdi-eng/M-Quiz)
-- [x] Program Help System (give hint, delete one wrong answer).
-- [x] add option to make user can not show the correct answer if he's answer is not correct for more difficulty.
-- [ ] Add Sound Effect (FX).
+- [x] Show questions Randomly
+- [ ] Show Recap for incorrect answers.
+- [ ] Add (Try Again) button if user lose.
+- [ ] Add Progress Bar for questions progress instead (or with) of questions counter.
+- [ ] Responsibility On various screens sizes.
+- [x] Add Option To Enable/Disable Sounds Effects.
+- [x] Add Sound Effect (FX).
 - [ ] store the progress for each level ``` localStorage.setItem(`data-of-level-${level}`, dataToSave); ```.
 - [ ] Add level system (lock level if not all the previous levels are completed).
 - [ ] Add same transitions when show/hide "next btn" container after user select answer.
@@ -21,6 +23,8 @@ A quiz web application focused on Material Engineering questions, designed to te
 
 --------------------------------
 ## ✅ Completed
+- [x] Program Help System (give hint, delete one wrong answer).
+- [x] add option to make user can not show the correct answer if he's answer is not correct for more difficulty.
 - [x] M-Quiz Game can be installed on mobile from browser (add to homepage) using Aggressive Web Application (PWA).
 - [x] Arabic Language support ❤️.
 - [x] Neglect `resultBtn`, Show Results **Automatically** after select the answer of the last question.
@@ -46,6 +50,8 @@ A quiz web application focused on Material Engineering questions, designed to te
 
 --------------------------------
 ## 🐞 Fixed Issues
+- [x] in internet (not locally) only index.html works, [some link have wrong reference in "main.js" and "questions.js" files, `location.assign("../../levels.html")` => `location.assign("./levels.html")`]
+- [x] upload project on GitHub, [Live Page](https://ali-mahdi-eng.github.io/M-Quiz/), [Project](https://github.com/ali-mahdi-eng/M-Quiz)
 - [x] Use (page URL) instead of (submit with form) to go the selected level.
 - [x] Answer Randomly indexed Each Time.
 - [x] Make Arabic As Default Language
