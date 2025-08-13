@@ -12,14 +12,17 @@ let footer = document.querySelector(".footer");
 let footerText = document.querySelector(".footer-text");
 let nextBtn = document.querySelector(".next-btn");
 
+let soundEffect = document.querySelector(".sound-effect");
+
 
 
 
 
 
 const gameState = {
-    difficulty: localStorage.getItem("difficulty") ||  "easy",
-    previewCorrectAnswer: localStorage.getItem("preview-correct-answer") || "hide",
+    difficulty: localStorage.getItem("difficulty") ||  "easy", // default: easy.
+    previewCorrectAnswer: localStorage.getItem("preview-correct-answer") || "hide", // default: hide.
+    enableSoundEffect: (localStorage.getItem("enable-sound-effect") === "disable") ? (false) : (true), // default: enable.
     level: 1, // start from 1.
     index: 0, // start from 0.
     total: 0, // total number of questions in this level (start from 1 to infinite if not empty).
@@ -27,7 +30,7 @@ const gameState = {
     wrong: 0, // 0 <= wrong <= power.
     correct: 0, // correct <= total.
 }
-let data; // defuault: undefined
+let data; // defuault: undefined.
 let allQuestions = [];
 let language = localStorage.getItem("language") || "ar";
 
@@ -121,7 +124,7 @@ getCurrentLevelFromURL();
 
 
 async function fetchQuestionsData() {
-    let url = `./data/questions-${language}.json`;
+    let url = `./data/${gameState.difficulty}/questions-${language}.json`;
     try {
         let response = await fetch(url);
         if (!response.ok) { throw new Error(`HTTP error! Status: ${response.status}`); }
@@ -143,8 +146,12 @@ function initApp(data) {
     if (!data) return; // stop function
     // Reset power to initial value (in UI):
     resetPower();
+    // Show Helps Box
+    document.querySelector(".helps-container").style.display = "flex";
     // Handle data:
     allQuestions = data[`level-${gameState.level}`];
+    // Show Questions Randomly
+    allQuestions = shuffleArray(allQuestions);
     displayCurrentQuestion(allQuestions[gameState.index]);
     displayCurrentQuestion(allQuestions[gameState.index]);
     // Update initial UI (user interface) with correct data:
@@ -180,10 +187,22 @@ function displayCurrentQuestion(question) {
                 if (isAnswerCorrect(answerText, question)) {
                     e.target.classList.add("correct-answer");
                     handleCorrectAnswer();
+                    // sound Effects
+                    if (gameState.enableSoundEffect) {
+                        soundEffect.currentTime = 0;
+                        soundEffect.src = "./assets/fx/correct-answer.wav"
+                        soundEffect.play();
+                    }
                 }
                 else {
                     e.target.classList.add("incorrect-answer");
                     handleWrongAnswer();
+                    // sound Effects
+                    if (gameState.enableSoundEffect) {
+                        soundEffect.currentTime = 0;
+                        soundEffect.src = "./assets/fx/incorrect-answer.wav"
+                        soundEffect.play();
+                    }
                     // Check If Game Is End
                     if (gameState.power === 0) {
                         showResult();
@@ -192,6 +211,9 @@ function displayCurrentQuestion(question) {
                 }
                 nextBtn.textContent = translation[language]["next-btn"];
                 main.style.pointerEvents = "none";
+                helpsContainer.style.pointerEvents = "none";
+                remove2answersBtn.style.pointerEvents = "none";
+                helpsContainer.style.opacity = "0.7";
                 footer.hidden = false;
                 nextBtn.addEventListener("click", handleNextBtn);
             });
@@ -236,6 +258,10 @@ function handleWrongAnswer(question) {
 
 function handleNextBtn() {
     main.style.pointerEvents = "auto";
+    helpsContainer.style.pointerEvents = "auto";
+    helpsContainer.style.opacity = "1";
+    remove2answersBtn.style.pointerEvents = "auto";
+    remove2answersBtn.style.opacity = "1";
     if (gameState.index === gameState.total -1) {
         showResult();
     }
@@ -245,8 +271,6 @@ function handleNextBtn() {
         if (allQuestions.length > 0) {
             displayCurrentQuestion(allQuestions[gameState.index]);
             displayCurrentQuestion(allQuestions[gameState.index]);
-            remove2answersBtn.style.pointerEvents = "auto";
-            remove2answersBtn.style.opacity = "1";
         }
     }
     document.querySelectorAll(".answer").forEach(function (e) {

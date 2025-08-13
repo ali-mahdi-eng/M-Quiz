@@ -2,6 +2,7 @@ let language = localStorage.getItem("language") || "ar";
 let title = document.querySelector(".title");
 let levelsContainer = document.querySelector(".levels-container");
 
+const difficulty = localStorage.getItem("difficulty") || "easy";
 
 
 
@@ -39,7 +40,7 @@ initializeLevelPage();
 
 async function fetchLevelsData() {
     try {
-        let url = `./data/questions-${language}.json`;
+        let url = `./data/${difficulty}/questions-${language}.json`;
         let response = await fetch(url);
         if (!response.ok) {
             throw new Error(`HTTP error! Status: ${response.status}`);

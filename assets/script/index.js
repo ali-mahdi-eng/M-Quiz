@@ -27,6 +27,9 @@ const translation = {
         "text--correct-answer-preview": "Correct Answer",
         "text--hide": "Hide",
         "text--show": "Show",
+        "text--sound-effect": "Sounds Effects",
+        "text--enable": "Enable",
+        "text--disable": "Disable",
     },
     
     "ar": {
@@ -50,6 +53,9 @@ const translation = {
         "text--correct-answer-preview": "الإجابة الصحيحة",
         "text--hide": "إخفاء",
         "text--show": "إظهار",
+        "text--sound-effect": "المؤثرات الصوتية",
+        "text--enable": "تفعيل",
+        "text--disable": "تعطيل",
     }
 }
 
@@ -90,14 +96,15 @@ function updateHomeUI() {
 
 
 function showAppSettings() {
-    const appVersion = "[0.7.1]";
+    const appVersion = "[0.7.0]";
+    const ProjectGitHub = "https://github.com/ali-mahdi-eng/M-Quiz";
     // Add Sweet Alert Notification
     Swal.fire({
         title: `<span class="settings-title"> ${translation[language]["settings-btn"]} </span>`,
         html: `
             <div class="settings-container">
                 <span class="settings">
-                    <span class="difficulty" hidden="true">
+                    <span class="difficulty">
                         ${translation[language]["text--difficulty"]}: 
                         <span id="easy" class="difficulty-select easy">${translation[language]["text--easy"]} </span>
                         <span id="hard" class="difficulty-select hard">${translation[language]["text--hard"]} </span>
@@ -109,9 +116,19 @@ function showAppSettings() {
                         <span id="hide" class="correct-answer-preview-select hide">${translation[language]["text--hide"]} </span>
                         <span id="show" class="correct-answer-preview-select show">${translation[language]["text--show"]} </span>
                     </span>
+                    <br>
+                    <br>
+                    <span class="sound-effect">
+                        ${translation[language]["text--sound-effect"]}: 
+                        <span id="enable" class="sound-effect-select enable">${translation[language]["text--enable"]} </span>
+                        <span id="disable" class="sound-effect-select disable">${translation[language]["text--disable"]} </span>
+                    </span>
                 </span>
             </div>
-            <span class="version"> ${translation[language]["text--version"]}: ${appVersion} </span>
+            <span class="version">
+                ${translation[language]["text--version"]}: ${appVersion} 
+                <a class="author-hyper-link" href="${ProjectGitHub}" hidden></a>
+            </span>
         `,
         imageUrl: "./assets/icons/settings.png",
         imageWidth: 90,
@@ -133,7 +150,6 @@ function showAppSettings() {
         },
         confirmButtonText: `<span class="info-close-btn"> ${translation[language]["info-close-btn"]} </span>`,
     });
-    
     
     
     // Select Difficulty (Easy, Hard)
@@ -161,6 +177,21 @@ function showAppSettings() {
             document.querySelectorAll(".correct-answer-preview-select").forEach((e)=>{ e.style.opacity = "0.7"; });
             e.style.opacity = "1";
             localStorage.setItem("preview-correct-answer", e.id);
+        });
+    });
+    // --------------------
+    // --------------------
+    // Enable Sounds Effects
+    if (localStorage.getItem("enable-sound-effect") === "disable") {
+        document.querySelector(".disable").style.opacity = "1";
+    }else {
+        document.querySelector(".enable").style.opacity = "1";
+    }
+    document.querySelectorAll(".sound-effect-select").forEach((e)=>{
+        e.addEventListener("click",()=>{
+            document.querySelectorAll(".sound-effect-select").forEach((e)=>{ e.style.opacity = "0.7"; });
+            e.style.opacity = "1";
+            localStorage.setItem("enable-sound-effect", e.id);
         });
     });
     // --------------------
