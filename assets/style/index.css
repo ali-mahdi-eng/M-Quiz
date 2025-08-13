@@ -197,7 +197,8 @@ body {
 }
 
 .easy, .hard,
-.hide, .show {
+.hide, .show,
+.enable, .disable {
     padding: 5px 15px;
     margin: 0 8px;
     border-radius: 15px;
@@ -209,6 +210,11 @@ body {
 
 .show, .hide {
     margin: 0 3px;
+}
+
+.enable, .disable {
+    margin: 0 3px;
+    padding: 5px 8px;
 }
 
 

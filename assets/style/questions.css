@@ -44,6 +44,7 @@ body {
 .helps-container {
     right: 20px;
     display: flex;
+    display: none;
     gap: 5px;
 }
 
