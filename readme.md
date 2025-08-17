@@ -1,21 +1,23 @@
 # M-Quiz 🧠⚙️  
-**Version: 0.7.0**
+**Version: 0.8.0**
 
 A quiz web application focused on Material Engineering questions, designed to test and enhance users' knowledge with a simple and engaging interface.
 
 ---
 
 ## 📝 To-Do:
+- [x] change default settings (hide => show correct answer), (easy => hard difficulty questions).
+- [x] change footer element size and colors.
 - [x] Show questions Randomly
-- [ ] Show Recap for incorrect answers.
-- [ ] Add (Try Again) button if user lose.
-- [ ] Add Progress Bar for questions progress instead (or with) of questions counter.
-- [ ] Responsibility On various screens sizes.
+- [x] Add (Try Again) button if user lose and (Next Level) if user win.
 - [x] Add Option To Enable/Disable Sounds Effects.
 - [x] Add Sound Effect (FX).
-- [ ] store the progress for each level ``` localStorage.setItem(`data-of-level-${level}`, dataToSave); ```.
+- [x] Add same transitions when show/hide "next btn" container after user select answer.
+- [ ] Show Recap for incorrect answers.
+- [ ] Add Progress Bar for questions progress instead (or with) of questions counter.
+- [ ] Responsibility On various screens sizes.
 - [ ] Add level system (lock level if not all the previous levels are completed).
-- [ ] Add same transitions when show/hide "next btn" container after user select answer.
+- [ ] ~~store the progress for each level ``` localStorage.setItem(`data-of-level-${level}`, dataToSave); ```.~~
 - 
 - 
 
