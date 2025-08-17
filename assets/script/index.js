@@ -96,7 +96,7 @@ function updateHomeUI() {
 
 
 function showAppSettings() {
-    const appVersion = "[0.7.0]";
+    const appVersion = "[0.8.0]";
     const ProjectGitHub = "https://github.com/ali-mahdi-eng/M-Quiz";
     // Add Sweet Alert Notification
     Swal.fire({
@@ -113,8 +113,8 @@ function showAppSettings() {
                     <br>
                     <span class="correct-answer-preview">
                         ${translation[language]["text--correct-answer-preview"]}: 
-                        <span id="hide" class="correct-answer-preview-select hide">${translation[language]["text--hide"]} </span>
                         <span id="show" class="correct-answer-preview-select show">${translation[language]["text--show"]} </span>
+                        <span id="hide" class="correct-answer-preview-select hide">${translation[language]["text--hide"]} </span>
                     </span>
                     <br>
                     <br>
@@ -153,10 +153,10 @@ function showAppSettings() {
     
     
     // Select Difficulty (Easy, Hard)
-    if (localStorage.getItem("difficulty") === "hard") {
-        document.querySelector(".hard").style.opacity = "1";
-    }else {
+    if (localStorage.getItem("difficulty") === "easy") {
         document.querySelector(".easy").style.opacity = "1";
+    }else {
+        document.querySelector(".hard").style.opacity = "1";
     }
     document.querySelectorAll(".difficulty-select").forEach((e)=>{
         e.addEventListener("click",()=>{
@@ -167,10 +167,10 @@ function showAppSettings() {
     });
     // --------------------
     // Preview Correct Answer (Hide, Show)
-    if (localStorage.getItem("preview-correct-answer") === "show") {
-        document.querySelector(".show").style.opacity = "1";
-    }else {
+    if (localStorage.getItem("preview-correct-answer") === "hide") {
         document.querySelector(".hide").style.opacity = "1";
+    }else {
+        document.querySelector(".show").style.opacity = "1";
     }
     document.querySelectorAll(".correct-answer-preview-select").forEach((e)=>{
         e.addEventListener("click",()=>{

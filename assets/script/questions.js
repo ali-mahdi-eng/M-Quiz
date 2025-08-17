@@ -19,9 +19,10 @@ let soundEffect = document.querySelector(".sound-effect");
 
 
 
+
 const gameState = {
-    difficulty: localStorage.getItem("difficulty") ||  "easy", // default: easy.
-    previewCorrectAnswer: localStorage.getItem("preview-correct-answer") || "hide", // default: hide.
+    difficulty: localStorage.getItem("difficulty") ||  "hard", // default: hard.
+    previewCorrectAnswer: localStorage.getItem("preview-correct-answer") || "show", // default: show.
     enableSoundEffect: (localStorage.getItem("enable-sound-effect") === "disable") ? (false) : (true), // default: enable.
     level: 1, // start from 1.
     index: 0, // start from 0.
@@ -41,7 +42,9 @@ const translation = {
     "en": {
         "text--level": "Level",
         "next-btn": "Next",
-        "back-to-home-btn": "Back to Home",
+        "done-btn": "Done",
+        "go-to-next-level-btn": "Next Level",
+        "try-again-btn": "Try Again",
         "score": "Score",
         "mistakes": "Mistakes",
         "still-power": "Still Power",
@@ -62,7 +65,9 @@ const translation = {
     "ar": {
         "text--level": "المستوى",
         "next-btn": "التالي",
-        "back-to-home-btn": "الرجوع إلى القائمة",
+        "done-btn": "تم",
+        "go-to-next-level-btn": "المستوى التالي",
+        "try-again-btn": "أعِد المحاولة",
         "score": "النقاط",
         "mistakes": "الاخطاء",
         "still-power": "الطاقة المتبقية",
@@ -84,13 +89,13 @@ const translation = {
 
 function translate(className) {
     if (Array.isArray(className)) {
-        // translate(["ok-btn"]);
         // Translate using element className
+        // translate(["ok-btn"]);
         return translation[language][className];
     }
     else {
-        // translate("OK Button");
         // Escape Translation
+        // translate("OK Button");
         return className;
     }
 }
@@ -113,7 +118,7 @@ document.addEventListener("DOMContentLoaded", initializeTranslation);
 function getCurrentLevelFromURL() {
     let params = new URLSearchParams(window.location.search);
     let currentLevel = +(params.get("level")) || 1;
-    document.querySelector("title").textContent = `${translation[language]["text--level"]} ${currentLevel}`;
+    document.querySelector("title").textContent = `${translate(["text--level"])} ${currentLevel}`;
     gameState.level = currentLevel;
     return currentLevel;
 }
@@ -143,12 +148,19 @@ fetchQuestionsData();
 
 
 function initApp(data) {
-    if (!data) return; // stop function
-    // Reset power to initial value (in UI):
+    if (!data) {
+        window.history.back(); // Back To Levels Page.
+        return; // stop function
+    }
+    // Reset Game State to initial values
+    gameState.index = 0;
+    gameState.wrong = 0;
+    gameState.correct = 0;
+    // Reset power to initial value and in UI:
     resetPower();
     // Show Helps Box
     document.querySelector(".helps-container").style.display = "flex";
-    // Handle data:
+    // Get Questions Of This Level
     allQuestions = data[`level-${gameState.level}`];
     // Show Questions Randomly
     allQuestions = shuffleArray(allQuestions);
@@ -158,6 +170,8 @@ function initApp(data) {
     gameState.total = allQuestions.length;
     totalQuestionCounter.textContent = gameState.total || "--";
     questionCounter.textContent = (gameState.index + 1) || "--";  // counter start from 1 not from 0.
+    
+    nextBtn.textContent = translate(["next-btn"]);
 }
 
 
@@ -209,12 +223,18 @@ function displayCurrentQuestion(question) {
                         return;
                     }
                 }
-                nextBtn.textContent = translation[language]["next-btn"];
                 main.style.pointerEvents = "none";
                 helpsContainer.style.pointerEvents = "none";
                 remove2answersBtn.style.pointerEvents = "none";
                 helpsContainer.style.opacity = "0.7";
-                footer.hidden = false;
+                // footer.hidden = false;
+                
+                footer.classList.remove("footer-out")
+                footer.classList.add("footer-in")
+                footer.style.display = "flex";
+                setTimeout(function() {;
+                    footer.classList.remove("footer-in")
+                }, 250);
                 nextBtn.addEventListener("click", handleNextBtn);
             });
         answersFragment.appendChild(answer);
@@ -230,18 +250,18 @@ function isAnswerCorrect(currentAnswer, question) {
 
 function handleCorrectAnswer(question) {
     gameState.correct += 1;
-    footerText.innerHTML = `<span class="msg-correct-answer"> ${translation[language]["msg-correct-answer"]} </span>`;
+    footerText.innerHTML = `<span class="msg-correct-answer"> ${translate(["msg-correct-answer"])} </span>`;
     footerText.style.fontSize = "1.1rem";
-    footer.style.background = "#2ecc71";
+    // footer.style.background = "#2ecc71";
 }
 
 function handleWrongAnswer(question) {
     gameState.wrong += 1;
     gameState.power -= 1;
     updatePowerUI();
-    footerText.innerHTML = `<span class="msg-wrong-answer"> ${translation[language]["msg-wrong-answer"]} </span>`;
+    footerText.innerHTML = `<span class="msg-wrong-answer"> ${translate(["msg-wrong-answer"])} </span>`;
     footerText.style.fontSize = "1rem";
-    footer.style.background = "#e74c3c";
+    // footer.style.background = "#e74c3c";
     // Show Correct Answer (if preview enable)
     if (gameState.previewCorrectAnswer === "show") {
         [...data["level-" + gameState.level][gameState.index].allAnswers].map((e)=>{
@@ -262,6 +282,11 @@ function handleNextBtn() {
     helpsContainer.style.opacity = "1";
     remove2answersBtn.style.pointerEvents = "auto";
     remove2answersBtn.style.opacity = "1";
+    console.log(gameState.index);
+    if (gameState.index === gameState.total -2) {
+        nextBtn.textContent = translate(["done-btn"]);
+    }
+    
     if (gameState.index === gameState.total -1) {
         showResult();
     }
@@ -276,14 +301,26 @@ function handleNextBtn() {
     document.querySelectorAll(".answer").forEach(function (e) {
         e.classList.remove("correct-answer", "incorrect-answer");
     });
-    footer.hidden = true;
+    // footer.hidden = true;
+    footer.classList.remove("footer-in");
+    footer.classList.add("footer-out");
+    setTimeout(function() {
+        footer.style.display = "none";
+        footer.classList.remove("footer-out");
+    }, 250);
     nextBtn.removeEventListener("click", handleNextBtn);
 }
 
 function showResult() {
     // Prevent Extra Touch
     main.style.pointerEvents = "none";
-    footer.hidden = true;
+    // footer.hidden = true;
+    footer.classList.remove("footer-in");
+    footer.classList.add("footer-out");
+    setTimeout(function() {
+        footer.style.display = "none";
+        footer.classList.remove("footer-out");
+    }, 250);
     // Show Results
     const gameResult = {
         scores: gameState.correct,
@@ -293,12 +330,15 @@ function showResult() {
     setTimeout(function() {
         showAlert(gameResult);
     },500);
-    sessionStorage.removeItem("SELECTED_LEVEL");
 }
 
 
 
 function resetPower() {
+    gameState.power = 3;
+    // Clear DOM:
+    document.querySelector(".power-container").innerHTML = "";
+    // Regenerate DOM:
     for (let i = 0; i < gameState.power; i++) {
         let powerElement = document.createElement("span");
             powerElement.className = "power";
@@ -363,10 +403,10 @@ remove2answersBtn.addEventListener("click", function() {
 /*
 helpsContainer.addEventListener("click", function() {
     Swal.fire({
-        title: `<span class="comming-soon">${translation[language]["comming-soon"]}</span>`,
-        html: `<span class="hint-system"> ${translation[language]["hint-system"]} </span>`,
+        title: `<span class="comming-soon">${translate(["comming-soon"])}</span>`,
+        html: `<span class="hint-system"> ${translate(["hint-system"])} </span>`,
         icon: "warning",
-        confirmButtonText: `<span class="ok-btn"> ${translation[language]["ok-btn"]} </span>`,
+        confirmButtonText: `<span class="ok-btn"> ${translate(["ok-btn"])} </span>`,
     });
 });
 */
@@ -377,26 +417,46 @@ function showAlert(gameResult) {
     const { scores = 0, mistakes = 0, power = 0 } = gameResult;
     // Add Sweet Alert Notification
     let iconType = (gameResult.power > 0) ? "success" : "error";
-    let resultTitleText = (gameResult.power > 0) ? `<span class="win-title"> ${translation[language]["win-title"]} </span>` : `<span class="lose-title"> ${translation[language]["lose-title"]} </span>`;
-    let htmlText = (gameResult.power > 0) ? `<span class="good-job"> ${translation[language]["good-job"]} </span>` : `<span class="try-again"> ${translation[language]["try-again"]} </span>`;
+    let resultTitleText = (gameResult.power > 0) ? `<span class="win-title"> ${translate(["win-title"])} </span>`   :   `<span class="lose-title"> ${translate(["lose-title"])} </span>`;
+    let htmlText = (gameResult.power > 0) ? `<span class="good-job"> ${translate(["good-job"])} </span>`   :   `<span class="try-again"> ${translate(["try-again"])} </span>`;
+    let confirmBtnText = (gameResult.power > 0) ? `<span class="back-to-home-btn"> ${translate(["go-to-next-level-btn"])} </span>`   :   `<span class="try-again-btn"> ${translate(["try-again-btn"])}! </span>`;
+    
     Swal.fire({
         icon: iconType,
         title: `<span class="result-title"> ${resultTitleText} </span>`,
         html: `
             <div class="results-container">
-                <span class="result-item"> <span class="score"> ${translation[language]["score"]} </span>: ${gameResult.scores}</span>
+                <span class="result-item"> <span class="score"> ${translate(["score"])} </span>: ${gameResult.scores}</span>
                 <!-- <br> -->
-                <span class="result-item"> <span class="mistakes"> ${translation[language]["mistakes"]} </span>: ${gameResult.mistakes}</span>
+                <span class="result-item"> <span class="mistakes"> ${translate(["mistakes"])} </span>: ${gameResult.mistakes}</span>
                 <!-- <br> -->
-                <span class="result-item"> <span class="still-power"> ${translation[language]["still-power"]} </span>: ${gameResult.power}</span>
+                <span class="result-item"> <span class="still-power"> ${translate(["still-power"])} </span>: ${gameResult.power}</span>
             </div>
             <!-- <span> ${htmlText} </span> -->
             `,
-        confirmButtonText: `<span class="back-to-home-btn"> ${translation[language]["back-to-home-btn"]} </span>`,
+        confirmButtonText: confirmBtnText,
     }).then((result)=>{
-        // if (ok) OR (backdrop) clicked.
-        if (result.isConfirmed  || result.isDismissed) {
+        main.style.pointerEvents = "auto";
+        // if [backdrop area] clicked: go to levels page (level +1).
+        if (result.isDismissed) {
             window.history.back();
+        }
+        // if [confirmButton] clicked: go next level (Or try again this level if player lose).
+        if (result.isConfirmed) {
+            if (power === 0) { /* lose */
+                // Try Again.
+                initApp(data);
+            }
+            if (power > 0) { /* win */
+                // Go Next Level.
+                if (gameState.level < Object.keys(data).length) {
+                    gameState.level += 1;
+                    window.location.href = `questions.html?level=${gameState.level}`;
+                } else {
+                    // If Not Levels More In Data Object
+                    window.history.back();
+                }
+            }
         }
     });
 }
